@@ -15,7 +15,7 @@ class Blockchain {
 
   addBlock(newBlock) {
     newBlock.prevHash = this.getLastBlock().hash;
-    newBlock.hash = newBlock.calculateHash();
+    newBlock.hash = newBlock.generateHash();
     this.chain.push(newBlock);
   }
 
@@ -27,7 +27,7 @@ class Blockchain {
       // VALIDATING THE HASH
       if (
         JSON.stringify(currentBlock.hash) !==
-        JSON.stringify(currentBlock.calculateHash())
+        JSON.stringify(currentBlock.generateHash())
       )
         return false;
 
