@@ -18,6 +18,23 @@ class Blockchain {
     newBlock.hash = newBlock.calculateHash();
     this.chain.push(newBlock);
   }
+
+  isValid() {
+    for (let i = 1; i < this.chain.length; i++) {
+      let currentBlock = this.chain[i];
+      let prevBlock = this.chain[i - 1];
+
+      // VALIDATING THE HASH
+      if (
+        JSON.stringify(currentBlock.hash) !==
+        JSON.stringify(currentBlock.calculateHash())
+      )
+        return false;
+
+      if (currentBlock.prevHash !== prevBlock.hash) return false;
+    }
+    return true;
+  }
 }
 
 module.exports = Blockchain;
