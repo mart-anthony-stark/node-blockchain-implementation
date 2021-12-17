@@ -6,6 +6,8 @@ class Block {
     this.timestamp = timestamp;
     this.data = data;
     this.prevHash = prevHash;
+    this.hash = this.generateHash();
+    this.nonce = 0;
   }
 
   generateHash() {
@@ -13,8 +15,20 @@ class Block {
       this.index +
         this.prevHash +
         this.timestamp +
-        JSON.stringify(this.data).toString()
-    );
+        JSON.stringify(this.data) +
+        this.nonce
+    ).toString();
+  }
+
+  mine(difficulty) {
+    while (
+      this.hash.substring(0, difficulty) !== Array(difficulty + 1).join("0")
+    ) {
+      this.nonce++;
+      this.hash = this.generateHash();
+    }
+
+    console.log("Block mined: " + this.hash);
   }
 }
 
