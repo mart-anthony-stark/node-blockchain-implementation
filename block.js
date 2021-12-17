@@ -8,7 +8,7 @@ class Block {
     this.prevHash = prevHash;
   }
 
-  calculateHash() {
+  generateHash() {
     return SHA256(
       this.index +
         this.prevHash +
