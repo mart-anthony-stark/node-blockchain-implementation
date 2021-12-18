@@ -1,19 +1,22 @@
 const Blockchain = require("./Blockchain");
 const Block = require("./block");
+const Transaction = require("./Transaction");
 
 let HesuCrypto = new Blockchain();
 
-console.log("Mining....");
-HesuCrypto.addBlock(new Block(1, "12/16/2021", { amount: 10 }));
+HesuCrypto.createTransaction(new Transaction("add1", "add2", 100));
+HesuCrypto.createTransaction(new Transaction("add2", "add1", 50));
 
-console.log("Mining Block...");
-HesuCrypto.addBlock(new Block(2, "12/16/2021", { amount: 8 }));
+console.log("\nStarting the miner(1)...");
 
-console.log("Mining....");
-HesuCrypto.addBlock(new Block(3, "12/16/2021", { amount: 10 }));
+HesuCrypto.minePendingTransactions("mart-address");
+console.log("Balance: " + HesuCrypto.getBalanceOfAddress("mart-address"));
 
-console.log("Mining Block...");
-HesuCrypto.addBlock(new Block(4, "12/16/2021", { amount: 8 }));
+console.log("\nStarting the miner(2)...");
 
-console.log(JSON.stringify(HesuCrypto, null, 4));
-// console.log("Is blockchain valid?", HesuCrypto.isValid());
+HesuCrypto.minePendingTransactions("mart-address");
+console.log("Balance: " + HesuCrypto.getBalanceOfAddress("mart-address"));
+
+console.log(HesuCrypto);
+
+console.log("Is blockchain valid? ", HesuCrypto.isValid());
