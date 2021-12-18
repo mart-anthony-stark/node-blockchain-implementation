@@ -1,10 +1,9 @@
 const SHA256 = require("crypto-js/sha256");
 
 class Block {
-  constructor(index, timestamp, data, prevHash) {
-    this.index = index;
+  constructor(timestamp, transactions, prevHash) {
     this.timestamp = timestamp;
-    this.data = data;
+    this.transactions = transactions;
     this.prevHash = prevHash;
     this.hash = this.generateHash();
     this.nonce = 0;
@@ -12,10 +11,9 @@ class Block {
 
   generateHash() {
     return SHA256(
-      this.index +
-        this.prevHash +
+      this.prevHash +
         this.timestamp +
-        JSON.stringify(this.data) +
+        JSON.stringify(this.transactions) +
         this.nonce
     ).toString();
   }
